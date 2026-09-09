@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
   <script src="js/script.js" defer></script>
 </head>
 <body>
@@ -29,7 +28,16 @@
       </nav>
       <div class="header-actions">
         <button class="button button-quiet" id="theme-toggle" type="button" aria-label="Cambiar tema"><span id="theme-icon" aria-hidden="true">◐</span><span id="theme-label">Tema oscuro</span></button>
-        <button class="button button-accent" id="pdf-button" type="button"><span aria-hidden="true">↓</span> Exportar PDF</button>
+        <div class="share-wrap">
+          <button class="button button-accent share-button" id="share-button" type="button" aria-expanded="false" aria-label="Compartir contenido"><span aria-hidden="true">✦</span><span>Compartir</span></button>
+          <div class="share-menu" id="share-menu" role="menu" aria-label="Compartir en redes sociales">
+            <a class="share-item" href="https://twitter.com/intent/tweet?text=Arquitectura%2C%20Redes%20y%20Ciberdelitos&url=https%3A%2F%2Fexample.com%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en X"><span class="share-icon">𝕏</span><span>X</span></a>
+            <a class="share-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fexample.com%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Facebook"><span class="share-icon">f</span><span>Facebook</span></a>
+            <a class="share-item" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fexample.com%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en LinkedIn"><span class="share-icon">in</span><span>LinkedIn</span></a>
+            <a class="share-item" href="https://wa.me/?text=Arquitectura%2C%20Redes%20y%20Ciberdelitos%20https%3A%2F%2Fexample.com%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en WhatsApp"><span class="share-icon">✓</span><span>WhatsApp</span></a>
+            <a class="share-item" href="https://t.me/share/url?url=https%3A%2F%2Fexample.com%2F&text=Arquitectura%2C%20Redes%20y%20Ciberdelitos" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Telegram"><span class="share-icon">✈</span><span>Telegram</span></a>
+          </div>
+        </div>
       </div>
     </header>
 

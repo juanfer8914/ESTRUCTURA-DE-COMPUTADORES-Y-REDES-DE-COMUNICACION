@@ -15,6 +15,51 @@ function setTheme(theme) {
 setTheme(savedTheme || 'light');
 themeToggle.addEventListener('click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
 
+const shareButton = document.querySelector('#share-button');
+const shareMenu = document.querySelector('#share-menu');
+if (shareButton && shareMenu) {
+  const shareUrl = window.location.href;
+  const shareTitle = document.title;
+
+  shareButton.addEventListener('click', () => {
+    const isOpen = shareMenu.classList.toggle('open');
+    shareButton.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', event => {
+    if (!shareButton.contains(event.target) && !shareMenu.contains(event.target)) {
+      shareMenu.classList.remove('open');
+      shareButton.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  shareMenu.querySelectorAll('.share-item').forEach(link => {
+    const network = link.textContent.trim();
+    const encodedUrl = encodeURIComponent(shareUrl);
+    const encodedTitle = encodeURIComponent(shareTitle);
+
+    switch (network) {
+      case 'X':
+        link.href = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;
+        break;
+      case 'Facebook':
+        link.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+        break;
+      case 'LinkedIn':
+        link.href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+        break;
+      case 'WhatsApp':
+        link.href = `https://wa.me/?text=${encodeURIComponent(`${shareTitle} ${shareUrl}`)}`;
+        break;
+      case 'Telegram':
+        link.href = `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
+        break;
+      default:
+        break;
+    }
+  });
+}
+
 const navToggle = document.querySelector('.nav-toggle');
 const mainNav = document.querySelector('#main-nav');
 navToggle.addEventListener('click', () => {
@@ -104,25 +149,3 @@ sections.forEach(section => sectionObserver.observe(section));
 const backToTop = document.querySelector('#back-to-top');
 window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 700), { passive: true });
 backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-document.querySelector('#pdf-button').addEventListener('click', async () => {
-  const button = document.querySelector('#pdf-button');
-  const original = button.innerHTML;
-  button.innerHTML = 'Preparando PDF...';
-  button.disabled = true;
-  const element = document.querySelector('#contenido');
-  if (window.html2pdf) {
-    await window.html2pdf().set({
-      margin: 8,
-      filename: 'arquitectura-redes-ciberdelitos.pdf',
-      image: { type: 'jpeg', quality: .94 },
-      html2canvas: { scale: 1.5, useCORS: true, logging: false },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      pagebreak: { mode: ['css', 'legacy'] }
-    }).from(element).save();
-  } else {
-    window.print();
-  }
-  button.innerHTML = original;
-  button.disabled = false;
-});
